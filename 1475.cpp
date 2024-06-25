@@ -7,7 +7,9 @@ int main(void){
     double arr[9]={};
     int N;
     cin>>N;
+    
     while(N>0){
+        //6과 9는 절반씩이므로 0.5 값씩 차지
         if(N%10==6||N%10==9)
         arr[6]+=0.5;
         else
