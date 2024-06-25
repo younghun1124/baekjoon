@@ -7,11 +7,11 @@ int main(void){
     int a, b, c,abc;
     cin>>a>>b>>c;
     abc=a*b*c;
-    int size=to_string(abc).size();
-    for(int i=1; i<=size;i++){
+    while(abc>0){
         arr[abc%(10)]++;
         abc=abc/10;
-    }
+        }
+   
     for(auto i:arr){
         cout<<i<<'\n';
     }
