@@ -1,8 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+int arr[10];
 int main(void){
     ios::sync_with_stdio(0);
     cin.tie(0);
-    cout<<"hello world!";
+    int a, b, c,abc;
+    cin>>a>>b>>c;
+    abc=a*b*c;
+    int size=to_string(abc).size();
+    for(int i=1; i<=size;i++){
+        arr[abc%(10)]++;
+        abc=abc/10;
+    }
+    for(auto i:arr){
+        cout<<i<<'\n';
+    }
+    
 }
