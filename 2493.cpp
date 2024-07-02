@@ -1,25 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+#define height first
+#define index second
 int main(void){
     ios::sync_with_stdio(0);
     cin.tie(0);
     int N;
     cin>>N;
-    vector<int> V;
+    stack<pair<int,int>> S; 
+    int order=1;
     while(N--){
-        int input;
-        cin>>input;
-        V.push_back(input);
-    }
-    for(int i=0; i<V.size(); i++){
-        int hit=0;
-        for(int j=i-1; j>=0; j--){
-            if(V[j]>V[i]){
-                hit=j+1;
-                break;
+        int hit=0;  
+        int input;        
+        cin>>input;        
+            while(!S.empty()){
+                if(S.top().height>input){
+                    hit=S.top().index;
+                    break;
+                }else{
+                    S.pop();
+                }
             }
-        }
+        S.push({input,order++});       
         cout<<hit<<" ";
     }
+    
 }
