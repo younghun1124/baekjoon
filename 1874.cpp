@@ -7,16 +7,26 @@ int main(void){
     int N;
     cin>>N;
     stack<int> S;
-    string ans;
-    for(int i=1; i<=N; ++i){
-        int k;        
-        cin>>k;
-        while(k>i) {
-            S.push(i);
-            
-        }
-        if(k<i) {
-            ans
-        }
+    string ans="";
+    int nextnum=1;
+    while(N--){
+        int input;
+            cin>>input;
+        while(true){
+            if(input>=nextnum){
+                S.push(nextnum++);
+                ans+="+\n";
+            }else{
+                if(S.top()==input){
+                    S.pop();
+                    ans+="-\n";
+                    break;
+                }else{
+                    cout<<"NO";
+                    return 0;
+                }
+            }
     }
+}
+ cout<<ans;
 }
