@@ -5,30 +5,25 @@ int main(void){
     ios::sync_with_stdio(0);
     cin.tie(0);
     int N;
-    cin>>N;
+    cin>>N;   
+    stack<pair<int, int>> S;  
+  
     for(int i=0; i<N; ++i){
-        cin>>arr[i];
-    }
-    stack<int> S;
-    string ans="";
-    for(int i=N-1; i>=0; --i){
-        int input=arr[i];        
+        int input;
+        cin>>input;
         while(true){
-            if(!S.empty()&&S.top()>input){
-                ans=to_string(S.top())+" "+ans;
-                S.push(input);
+            if(!S.empty()&&S.top().second<input){
+                arr[S.top().first]=input;
+                S.pop();
+            } 
+            else {
+                S.push({i,input}); 
                 break;
-            }
-            if(!S.empty()&&S.top()<=input){
-                S.pop();                
-            }
-            if(S.empty()){
-                ans="-1 "+ans;
-                S.push(input);     
-                break;
-            }
-        }     
+            }            
+        }            
     }
-    cout<<ans;
-    
+    for(int i=0; i<N; ++i){
+        if(arr[i]==0) cout<<"-1 ";
+        else cout<<arr[i]<<" ";
+    }    
 }
