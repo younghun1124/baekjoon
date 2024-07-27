@@ -1,33 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
-stack<string> S;
 
-bool stack_calc(string op, int val){
-    int tmp=0;
-    while(!S.empty()&&(S.top()!="("||S.top()!="[")){
-        if(op==")"||S.top()=="["){
-            return false;
-        }else if(op=="]"||S.top()=="("){
-            return false;
+bool check_valid(string S){
+    stack<char> st;
+    for(char c:S){
+        if(c=='('||c=='[') st.push(c);
+        else if(c==')'){
+            if(!st.empty()&&st.top()=='(') st.pop();
+            else return false;
+        }else if(c==']'){
+            if(!st.empty()&&st.top()=='[') st.pop();
+            else return false;
         }
-        tmp+=stoi(S.top());
-        S.pop();
     }
-    S.push(tmp+val);
+    if(st.empty()) return true;
+    return false;
 }
 
 int main(void){
     ios::sync_with_stdio(0);
     cin.tie(0);
     string a;
-    cin>>a;
-    
-    for(string s:a){
-        if(s=="("||s=="[") S.push(s);
-        else if(s==")"){
-            if(!S.empty()&&S.top()=="("){
-                S.pop();
-            }
-        }
+    cin>>a;    
+    if(!check_valid(a)){
+         cout<<0;
+         return 0;
     }
+    stack<int> st;
+    for(char c:a){
+        int tmp=0;
+        if(c==')'){
+            if(!st.empty()&&st.top()!=0){
+                tmp+=st.top()*2;
+                st.pop();
+            }else tmp+=2;
+            st.pop();
+            while(!st.empty()&&st.top()!=0){
+                tmp+=st.top();
+                st.pop();
+            }
+            st.push(tmp);
+        }else if(c==']'){
+            if(!st.empty()&&st.top()!=0){
+                tmp+=st.top()*3;
+                st.pop();
+            }else tmp+=3;
+            st.pop();
+            while(!st.empty()&&st.top()!=0){
+                tmp+=st.top();
+                st.pop();
+            }
+            st.push(tmp);
+        }
+        else st.push(0);
+    }
+    cout<<st.top();
 }
