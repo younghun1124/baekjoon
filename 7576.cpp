@@ -10,14 +10,11 @@ int main(void){
     int n,m;
     cin>>m>>n;
     queue<pair<int,int>> Q;
-    for(int i=0; i<n; ++i) fill_n(dist[i],m,2000000);
     for(int i=0; i<n; i++)
         for(int j=0; j<m; j++){
             cin>>board[i][j];
-            if(board[i][j]==1){
-                Q.push({i,j});  
-                dist[i][j]=0;
-            }           
+            if(board[i][j]==1) Q.push({i,j});
+            if(board[i][j]==0) dist[i][j] = -1;
         }
     while(!Q.empty()){
         pair<int,int> cur=Q.front();Q.pop();
@@ -25,7 +22,11 @@ int main(void){
             int nx=cur.first+dx[dir];
             int ny=cur.second+dy[dir];
             if(nx<0||nx>=n||ny<0||ny>=m) continue;           
-            if(board[nx][ny]==-1||dist[nx][ny]<=dist[cur.first][cur.second]+1) continue;
+            if(dist[nx][ny]>=0) continue;
+            //if(board[nx][ny]==-1||dist[nx][ny]<=dist[cur.first][cur.second]+1) continue; 
+            //위 코드는 다른 지점에서 탐색할때 거리가 더 가까울 경우 때문에 짰었는데 실제로는 BFS
+            //이기 때문에 중간 지점에서 만난다면 같은 거리일 수밖에 없음.
+            //따라서 그냥 탐색 했었는지만 판별하면 됨.
             dist[nx][ny]=dist[cur.first][cur.second]+1;
             Q.push({nx,ny});
         }
@@ -33,10 +34,10 @@ int main(void){
     int max=0;
     for(int i=0; i<n; ++i)
         for(int j=0; j<m; ++j){
-            if(board[i][j]!=-1&&dist[i][j]==2000000) {
+            if(dist[i][j]==-1) {
                  cout<<-1;
                  return 0;
-            }else if(dist[i][j]!=2000000&&dist[i][j]>max) max=dist[i][j];            
+            }else if(dist[i][j]>max) max=dist[i][j];            
             
         }
     
