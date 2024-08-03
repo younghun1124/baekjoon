@@ -16,7 +16,7 @@ bool check(int n, int idx, int idx2){
 void func(int n, int idx, int idx2){
     if(check(n,idx,idx2)){
         ans[arr[idx][idx2]+1]++;
-        return
+        return;
     }
     for(int i=0; i<3; ++i)
             for(int j=0; j<3; ++j)
