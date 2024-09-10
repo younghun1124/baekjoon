@@ -14,5 +14,5 @@ int main(void){
     cin.tie(0);
     ll a,b,c;
     cin>>a>>b>>c;
-    cout<<POW(a,b,c);    
+    cout<<POW(a,b,c);
 }
