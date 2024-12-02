@@ -7,7 +7,7 @@ def matrix_chain_order(p, n):
     for l in range(1, n):
         for i in range(n - l):
             j = i + l
-            m[i][j] = 999999999  # float('inf') 대신 큰 정수 사용
+            m[i][j] = float("inf")
             for k in range(i, j):
                 q = m[i][k] + m[k + 1][j] + p[i] * p[k + 1] * p[j + 1]
                 if q < m[i][j]:
