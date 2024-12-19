@@ -1,3 +1,2 @@
-a=float(input())
-b=float(input())
+a,b=list(map(float,input().split()))
 print(f"{(a+b)/(a-b):.2f}")
