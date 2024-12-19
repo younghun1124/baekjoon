@@ -1,6 +1,7 @@
 n=int(input())
-
-for _ in range(n):
-    arr="*"*n
-    print(f"{arr}\n{arr}")
+arr="*"*n
+for _ in range(2):    
+    for _ in range(n):
+        print(arr)
+    
     print()
