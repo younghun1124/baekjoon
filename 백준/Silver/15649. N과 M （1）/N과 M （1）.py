@@ -1,16 +1,18 @@
 from collections import deque
 n,m=list(map(int,input().split()))
-
+used=[False]*(n+1)
 ans=deque()
-def recursion(n): # 1부터 n까지 중복없이 ans 에 수열을 집어넣는 함수
-    if len(ans)==m:
+def recursion(depth): # 1부터 n까지 중복없이 ans 에 수열을 집어넣는 함수
+    if depth==m:
         print(" ".join(map(str,ans)))   
         return
     for i in range(1,n+1):
-        if i not in ans:
+        if used[i]!=True:
             ans.append(i)
-            recursion(n)
+            used[i]=True
+            recursion(depth+1)
             ans.pop()
-recursion(n)    
+            used[i]=False
+recursion(0)    
     
         
