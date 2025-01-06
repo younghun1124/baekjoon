@@ -15,7 +15,13 @@ for ridx, row in enumerate(board):
             cctvs.append((ridx,cidx,i))
 used=[False]*len(cctvs)  
 
-
+cctv_directions={
+    1:[[0],[1],[2],[3]],
+    2:[[0,2],[1,3]],
+    3:[[0,1],[1,2],[2,3],[3,0]],
+    4:[[0,1,2],[1,2,3],[2,3,0],[3,0,1]],
+    5:[[0,1,2,3]],
+}
           
 def shootfromcctv(ridx,cidx,option,direction,board):#쏘는방향 <-에서부터 반시계방향 0123
     def shoot(ridx,cidx,arrows,board):
@@ -79,20 +85,19 @@ def backtrack(depth, board):
         # print(ans)
         return 
       
-    for idx, cctv in enumerate(cctvs):
-        if used[idx]==False:
-            ridx,cidx,i=cctv
-            used[idx]=True
-            if i==5:
-                tempboard=[row[:] for row in board]
-                shootfromcctv(ridx,cidx,i,5,tempboard)
-                backtrack(depth+1,tempboard)
-            else:
-                for dir in range(4):
-                    tempboard=[row[:] for row in board]
-                    shootfromcctv(ridx,cidx,i,dir,tempboard)
-                    backtrack(depth+1,tempboard)
-            used[idx]=False
+    
+    ridx,cidx,i=cctvs[depth]
+    
+    if i==5:
+        tempboard=[row[:] for row in board]
+        shootfromcctv(ridx,cidx,i,5,tempboard)
+        backtrack(depth+1,tempboard)
+    else:
+        for dir in range(4):
+            tempboard=[row[:] for row in board]
+            shootfromcctv(ridx,cidx,i,dir,tempboard)
+            backtrack(depth+1,tempboard)
+            
                 
-backtrack(0,board)                                                      
+backtrack(0,board)
 print(ans)
