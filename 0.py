@@ -6,7 +6,7 @@ input=sys.stdin.readline
 n,m=list(map(int,input().split()))
 board=[list(map(int,input().split())) for _ in range(n)]
 cctvs=[]
-counts=[]
+ans=float("inf")
 
 
 for ridx, row in enumerate(board):
@@ -50,7 +50,7 @@ def shootfromcctv(ridx,cidx,option,direction,board):#쏘는방향 <-에서부터
                             board[i][cidx]='#'
                     else:
                         break
-        return board
+        return
     
     def getarrows(option, direction):
         if option==1:
@@ -64,26 +64,35 @@ def shootfromcctv(ridx,cidx,option,direction,board):#쏘는방향 <-에서부터
         elif option==5:
             return [0,1,2,3]    
     arrows=getarrows(option,direction)
-    tempboard=copy.deepcopy(board)
-    return shoot(ridx,cidx,arrows,tempboard)
+    shoot(ridx,cidx,arrows,board)
+    return 
 
-def backtrack(depth, board):    
+def backtrack(depth, board):
+    global ans    
     if depth==len(cctvs):
-        ans=0
+        count=0
         for row in board:
             for i in row:
                 if i==0:
-                    ans=ans+1
-        counts.append(ans)
+                    count=count+1
+        ans=min(ans,count)
+        # print(ans)
         return 
       
     for idx, cctv in enumerate(cctvs):
         if used[idx]==False:
             ridx,cidx,i=cctv
             used[idx]=True
-            for dir in range(4):
-                backtrack(depth+1,shootfromcctv(ridx,cidx,i,dir,board))
+            if i==5:
+                tempboard=[row[:] for row in board]
+                shootfromcctv(ridx,cidx,i,5,tempboard)
+                backtrack(depth+1,tempboard)
+            else:
+                for dir in range(4):
+                    tempboard=[row[:] for row in board]
+                    shootfromcctv(ridx,cidx,i,dir,tempboard)
+                    backtrack(depth+1,tempboard)
             used[idx]=False
                 
-backtrack(0,board)
-print(min(counts))
+backtrack(0,board)                                                      
+print(ans)
