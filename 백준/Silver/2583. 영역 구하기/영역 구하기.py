@@ -41,5 +41,4 @@ for ridx, row in enumerate(board):
             ans.append(bfs(ridx,cidx))
             
 print(anscount)
-for i in sorted(ans):
-    print(i, end=' ')
+print(' '.join(map(str,(sorted(ans)))))
