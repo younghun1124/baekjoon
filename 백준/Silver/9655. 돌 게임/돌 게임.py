@@ -10,17 +10,12 @@ if n==3:
     exit()
 d=[0]*(n+1)
 
-
-
 d[1]=0
 d[2]=1
 d[3]=0
 
-
 for i in range(4,n+1):
-    d[i]=not (min(d[i-1],d[i-3]))
-    
-
+    d[i]= min(not d[i-1],not d[i-3])
 
 if d[i]:
     print('CY')
