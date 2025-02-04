@@ -1,18 +1,23 @@
 import sys
 input = sys.stdin.readline
-N, R = map(int, input().split())
-bap = [list(map(int, input().split())) for _ in range(N)]  # 튜플 → 리스트
+n, r = map(int, input().split())
+arr = [list(map(int, input().split())) for _ in range(n)]
+r2=r*r
 
-def is_in_wok(x, y, bx, by):
-    return (x - bx) ** 2 + (y - by) ** 2 <= R ** 2  # 튜플 언패킹 제거
+def cal(x, y):
+    cnt = 0
+    for i, j in arr:
+        if (x - i) ** 2 + (y - j) ** 2 <= r2:
+            cnt += 1
+    return cnt
 
 ans = 0
-count = 0
-for X in range(-100, 100):  # 101 → 100
-    for Y in range(-100, 100):
-        temp = sum(1 for bx, by in bap if is_in_wok(X, Y, bx, by))  # 리스트 컴프리헨션 사용
-        if count < temp:
-            count = temp
-            ans = (X, Y)
+ans_pos = [-1, -1]
+for x in range(-100, 100):
+    for y in range(-100, 100):
+        temp = cal(x, y)
+        if ans < temp:
+            ans = temp
+            ans_pos = (x, y)
 
-print(ans[0], ans[1])
+print(*ans_pos)
