@@ -1,7 +1,7 @@
 import sys
 input = sys.stdin.readline
 n, r = map(int, input().split())
-arr = [list(map(int, input().split())) for _ in range(n)]
+arr = [tuple(map(int, input().split())) for _ in range(n)]
 r2=r*r
 
 def cal(x, y):
@@ -13,8 +13,8 @@ def cal(x, y):
 
 ans = 0
 ans_pos = [-1, -1]
-for x in range(-100, 100):
-    for y in range(-100, 100):
+for x in range(-100, 101):
+    for y in range(-100, 101):
         temp = cal(x, y)
         if ans < temp:
             ans = temp
