@@ -18,9 +18,9 @@ for X in range(-100,101):
         for B in bap:
             if is_in_wok((X,Y),B):
                 temp+=1
-            if count<temp:
-                count=temp
-                ans=(X,Y)
-print(ans[0],ans[1])
+        if count<temp:
+            count=temp
+            ans=(X,Y)
+print(*ans)
             
     
