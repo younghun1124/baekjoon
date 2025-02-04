@@ -1,10 +1,11 @@
-import math
+import sys
+input=sys.stdin.readline
 N,R=map(int,input().split())
 bap=[tuple(map(int,input().split())) for _ in range(N)]
 def is_in_wok(W,B):
     X,Y=W
     bx,by=B
-    if math.sqrt((X-bx)**2+(Y-by)**2)<=R:
+    if (X-bx)**2+(Y-by)**2<=R**2:
         return True
     else:
         return False
