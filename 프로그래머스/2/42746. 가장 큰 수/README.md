@@ -1,10 +1,10 @@
 # [level 2] 가장 큰 수 - 42746 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42746) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42746#qna) 
 
 ### 성능 요약
 
-메모리: 24 MB, 시간: 419.74 ms
+메모리: 27 MB, 시간: 57.14 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 02월 06일 17:52:50
+2025년 02월 06일 18:01:15
 
 ### 문제 설명
 
