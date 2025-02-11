@@ -1,17 +1,16 @@
-n=int(input())
-n_list=list(map(int,input().split()))
-count_dict = {}
+import sys
 
+# 입력 빠르게 받기
+n = int(sys.stdin.readline().strip())
+n_list = map(int, sys.stdin.readline().split())
+
+# 딕셔너리로 숫자 개수 세기
+count_dict = {}
 for num in n_list:
-    if num in count_dict:
-        count_dict[num] += 1
-    else:
-        count_dict[num] = 1
-m=int(input())
-m_list=list(map(int,input().split()))
-for i in m_list:
-    if i in count_dict:
-        print(count_dict[i], end=' ')
-    else:
-        print(0, end=' ')
-    
+    count_dict[num] = count_dict.get(num, 0) + 1
+
+m = int(sys.stdin.readline().strip())
+m_list = map(int, sys.stdin.readline().split())
+
+# 결과 출력 (join 사용으로 속도 최적화)
+print(' '.join(str(count_dict.get(i, 0)) for i in m_list))
