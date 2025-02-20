@@ -1,9 +1,10 @@
+#https://www.acmicpc.net/problem/18290
 from itertools import combinations
 N,M,K=map(int,input().split())
 board=[list(map(int,input().split())) for _ in range(N)]
 idxs=[(r,c) for r in range(N) for c in range(M)]
 
-def isclose(comb): #TODO: 중복 검사 있어버림.
+def isclose(comb): 
     for i,j in combinations(comb,2):
         r,c=i
         if j==(r-1,c) or j==(r+1, c) or j==(r, c-1)or j==(r, c+1):
