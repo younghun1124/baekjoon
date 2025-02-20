@@ -1,1 +1,2 @@
-used=[False]*len(cctvs)  
+
+    

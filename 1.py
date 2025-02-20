@@ -1,26 +1,30 @@
-from collections import deque
-N,K=map(int,input().split())
-dq=deque()
-vis=[float("inf")]*100002
-dq.append((N,0))
-while dq:
-    d,t=dq.popleft()
+from itertools import combinations
+N,M,K=map(int,input().split())
+board=[list(map(int,input().split())) for _ in range(N)]
+idxs=[(r,c) for r in range(N) for c in range(M)]
+
+def isclose(comb): #TODO: 중복 검사 있어버림.
+    for i,j in combinations(comb,2):
+        r,c=i
+        if j==(r-1,c) or j==(r+1, c) or j==(r, c-1)or j==(r, c+1):
+            return True
+    return False
+ans=-60000
+for comb in combinations(idxs,K):
     
-    if d==K:
-        print(t)
-        break
-    if not (0<=d<=100000):
-        
-    if vis[d*2]>t:
-        vis[d*2]=t
-        dq.appendleft((d*2,t))
-    if vis[d-1]>t+1:
-        vis[d-1]=t+1
-        dq.append((d-1,t+1))
-    if vis[d+1]>t+1:
-        vis[d+1]=t+1
-        dq.append((d+1,t+1))    
+    if not isclose(comb):
+        tempans=0
+        for r,c in comb:
+            tempans+=board[r][c]
+        ans=max(tempans,ans)
+print(ans)
+
+# def backt(r,c,depth):
+#     global ans
+#     if depth==K:
+#         ans=max(sum(select),ans)
+#         return
     
-    
-    
+#     for i in range(N):
+#         for j in range(c,M+1):
     
