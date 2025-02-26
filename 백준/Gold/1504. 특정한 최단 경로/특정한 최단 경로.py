@@ -1,39 +1,40 @@
-import heapq
-from collections import defaultdict
-N,E= map(int,input().split())
-board=defaultdict(list)
-for _ in range(E):
-    a,b,c= map(int,input().split())
-    board[a].append((c,b)) #거리, 정점 순
-    board[b].append((c,a))
-
-v1,v2= map(int,input().split())
-q=[]
+import sys
+from heapq import heappush, heappop
 INF=int(1e9)
-
-def dstra(start,end):
+def dijkstra(start,end):
     D=[INF]*(N+1)
     D[start]=0
-    heapq.heappush(q,(0,start))
+    q=[]
+    heappush(q,(0,start))
     while q:
-        w,node=heapq.heappop(q)
-        if w>D[node]: #이미 너무 느려진 간선 버리기
+        w,node=heappop(q)
+        if w>D[node]:
             continue
-        for n_w,n_node in board[node]: 
-            cost=n_w+D[node]
-            if D[n_node]>cost:
-                heapq.heappush(q,(n_w,n_node))
+        for n_w, n_node in graph[node]:
+            cost=D[node]+n_w
+            if cost<D[n_node]:
                 D[n_node]=cost
-    
+                heappush(q,(n_w,n_node))
     return D[end]
 
-start_to_v1=dstra(1,v1)
-start_to_v2=dstra(1,v2)
-v1_to_v2=dstra(v1,v2)
-v1_to_end=dstra(v1,N)
-v2_to_end=dstra(v2,N)
-ans=min(start_to_v1+v2_to_end,start_to_v2+v1_to_end)+v1_to_v2  
+
+input=sys.stdin.readline
+N,E=map(int,input().split())
+graph=[list() for _ in range(N+1)]
+for _ in range(E):
+    a,b,c=map(int,input().split())
+    graph[a].append((c,b))
+    graph[b].append((c,a))
+v1,v2=map(int,input().split())
+
+one_v1=dijkstra(1,v1)
+one_v2=dijkstra(1,v2)
+v1_v2=dijkstra(v1,v2)
+v1_N=dijkstra(v1,N)
+v2_N=dijkstra(v2,N)
+ans=INF
+ans=min(one_v1+v2_N,one_v2+v1_N)+v1_v2
 if ans>=INF:
     print(-1)
-else :print(ans)
-        
+else:
+    print(ans)
