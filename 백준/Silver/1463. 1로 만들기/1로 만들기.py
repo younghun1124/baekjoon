@@ -1,13 +1,23 @@
-n=int(input())
-D=[float("inf")]*(n+1)
-D[1]=0
-for i in range(2,n+1):
-    D[i]=D[i-1]+1
-    if i%3==0:
-        D[i]=min(D[i//3]+1,D[i])
-    if i%2==0:
-        D[i]=min(D[i//2]+1,D[i])
-        
-print(D[n])
-        
-        
+from collections import deque
+N = int(input())
+visited = [1e9]*(N+1)
+def bfs():
+    q = deque()
+    q.append(N)
+    visited[N]=0
+    while q:
+        cur = q.popleft()
+        if cur==1:
+            break
+        if cur%3==0 and visited[cur//3]>visited[cur] + 1:
+            visited[cur//3] = visited[cur] + 1
+            q.append(cur//3)
+        if cur%2 == 0 and visited[cur//2]>visited[cur] + 1:
+            visited[cur//2] = visited[cur] + 1
+            q.append(cur//2)
+        if visited[cur-1]>visited[cur] + 1:
+            visited[cur-1] = visited[cur] + 1
+            q.append(cur-1)
+
+bfs()
+print(visited[1])
