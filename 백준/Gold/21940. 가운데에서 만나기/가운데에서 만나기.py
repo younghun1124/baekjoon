@@ -23,7 +23,6 @@ for x in range(1,N+1):
     dist=0
     for f in C:
         if dist>=INF:
-            temp=[INF]
             break
         dist=max(G[f][x]+G[x][f],dist)
     if dist<mindist:
