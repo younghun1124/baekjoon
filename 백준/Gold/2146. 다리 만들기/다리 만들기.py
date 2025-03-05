@@ -43,9 +43,7 @@ def bfs_set_bridge(islandnum):
                 elif board[nx][ny]!=islandnum and board[nx][ny]!=0: #새로운 섬 도착, 거리 판별
                     if ans>visit[x][y]:
                         ans=visit[x][y]
-    
-                    
-                   
+                    return
 
 islandnum=2
 for i in range(N):
